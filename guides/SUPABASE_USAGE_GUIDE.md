@@ -170,11 +170,11 @@ All sources now come from Supabase's unified ClickHouse `logs` table. Source-spe
   "source": "edge_logs",
   "service": "api-gateway",
   "attributes": {
-    "method": "POST",
-    "path": "/functions/v1/my-func",
-    "status": 200,
-    "ip": "71.42.201.2",
-    "cf_city": "Austin"
+    "request.method": "POST",
+    "request.path": "/functions/v1/my-func",
+    "response.status_code": 200,
+    "request.headers.cf_connecting_ip": "71.42.201.2",
+    "request.cf.city": "Austin"
   }
 }
 ```
