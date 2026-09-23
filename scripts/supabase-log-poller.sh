@@ -165,7 +165,10 @@ normalize() {
           (($row.severity_text // $row.log_attributes["level"] // "INFO") | ascii_upcase)
         end
       ),
-      body: $row.event_message,
+      body: (if $row.source == "auth_logs"
+        then ($row.event_message // $row.log_attributes["msg"])
+        else $row.event_message
+        end),
       source: $row.source,
       service: ($row | service_name),
       attributes: ($row.log_attributes // {})
