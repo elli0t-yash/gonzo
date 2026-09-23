@@ -151,7 +151,9 @@ normalize() {
     . as $row |
     ($row | status_code) as $status |
     {
-      timestamp: $row.timestamp,
+      timestamp: (if ($row.timestamp | type) == "string"
+                    and ($row.timestamp | test("T[0-9:.]+$"))
+                  then $row.timestamp + "Z" else $row.timestamp end),
       severity: (
         if (
           ($row.source == "edge_logs" or $row.source == "function_edge_logs")
